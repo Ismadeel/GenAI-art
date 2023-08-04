@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GenAI Art</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        #prompt {
+            width: 300px;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        #execute-btn {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #output-image {
+            margin-top: 20px;
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>GenAI Art</h1>
+        <div class="input-container">
+            <label for="prompt">Prompt:</label>
+            <input type="text" id="prompt" placeholder="Enter your prompt here">
+            <button id="execute-btn">Execute</button>
+        </div>
+        <div class="image-container">
+            <img id="output-image" src="" alt="Generated Image"  style="height: 512px;width: 512px;">
+        </div>
+    </div>
+
+    <script>
+        const executeBtn = document.getElementById('execute-btn');
+        const promptInput = document.getElementById('prompt');
+        const outputImage = document.getElementById('output-image');
+
+        // Replace this function with the code to execute your AI model and get the image URL.
+        function executeAI(promptText) {
+            debugger
+            // For this example, we are just using a placeholder image.
+            let imageUrl = 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif';
+            const apiUrl = `http://127.0.0.1:5000?prompt=${promptText}`;
+
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data)
+                    outputImage.src = data;
+                    // Handle the fetched data
+                    //displayData(data);
+                })
+                .catch(error => {
+                    console.error('Fetch error:', error);
+                    displayError(error.message);
+                });
+            return imageUrl;
+        }
+
+        executeBtn.addEventListener('click', async () => {
+            debugger
+            const promptText = promptInput.value;
+            if (!promptText.trim()) {
+                alert('Please enter a prompt.');
+                return;
+            }
+
+            const imageUrl = await executeAI(promptText);
+            outputImage.src = imageUrl;
+        });
+    </script>
+</body>
+</html>
