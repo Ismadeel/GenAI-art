@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>GenAI Art</title>
+    <title>GenAI Art Logo Generator</title>
     <style>
         body {
             display: flex;
@@ -53,18 +53,28 @@
             margin-top: 20px;
             max-width: 100%;
         }
+        #top-left-text {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <h1>GenAI Art</h1>
+              <!-- Add the top left text element -->
+              <div id="top-left-text">Project By: Muhammad Ismail Adeel</div>
+        <h1>GenAI Art Logo Generator</h1>
         <div class="input-container">
             <label for="prompt">Prompt:</label>
             <input type="text" id="prompt" placeholder="Enter your prompt here">
             <button id="execute-btn">Execute</button>
         </div>
         <div class="image-container">
-            <img id="output-image" src="" alt="Generated Image"  style="height: 512px;width: 512px;">
+            <img id="output-image" src="" alt="Generated Image"  style="height: 400px;width: 512px;">
         </div>
     </div>
 
@@ -95,7 +105,7 @@
                 })
                 .catch(error => {
                     console.error('Fetch error:', error);
-                    displayError(error.message);
+                   // displayError(error.message);
                 });
             return imageUrl;
         }
